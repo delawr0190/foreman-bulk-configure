@@ -1,0 +1,9 @@
+client:
+  id: fill_in
+  pickaxe: fill_in
+
+user:
+  apiKey: fill_in
+
+foreman:
+  url: https://dashboard.foreman.mn

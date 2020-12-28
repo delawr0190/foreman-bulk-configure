@@ -1,4 +1,4 @@
-package mn.foreman.bulkconfigure;
+package mn.foreman.bulkconfigure.model;
 
 import lombok.Builder;
 import lombok.Data;

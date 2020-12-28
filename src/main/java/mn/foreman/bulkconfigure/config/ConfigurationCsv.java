@@ -1,6 +1,6 @@
 package mn.foreman.bulkconfigure.config;
 
-import mn.foreman.bulkconfigure.MinerConfig;
+import mn.foreman.bulkconfigure.model.MinerConfig;
 
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 /** CSV parsing-related configuration. */
 @Configuration
-public class CsvConfiguration {
+public class ConfigurationCsv {
 
     /**
      * Loads the CSV file and parses {@link MinerConfig configs}.
@@ -116,7 +116,7 @@ public class CsvConfiguration {
     private static List<MinerConfig> toConfigs(final List<List<String>> csv) {
         return csv
                 .stream()
-                .map(CsvConfiguration::toConfig)
+                .map(ConfigurationCsv::toConfig)
                 .collect(Collectors.toList());
     }
 }
