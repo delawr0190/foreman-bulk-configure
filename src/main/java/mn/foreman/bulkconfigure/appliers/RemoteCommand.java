@@ -1,4 +1,4 @@
-package mn.foreman.bulkconfigure.process;
+package mn.foreman.bulkconfigure.appliers;
 
 import mn.foreman.api.ForemanApi;
 import mn.foreman.api.actions.Actions;

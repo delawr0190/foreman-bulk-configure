@@ -1,19 +1,17 @@
-package mn.foreman.bulkconfigure.process;
+package mn.foreman.bulkconfigure.appliers;
 
 import mn.foreman.api.ForemanApi;
 import mn.foreman.api.miners.Miners;
 import mn.foreman.bulkconfigure.model.MinerConfig;
-import mn.foreman.model.Network;
+import mn.foreman.model.Pool;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
+import java.util.stream.Collectors;
 
-/**
- * Applies a network configuration if a static IP is provided on the miner
- * config.
- */
-public class NetworkApplier
+/** Applies a pool configuration if pools are provided on the miner config. */
+public class PoolApplier
         extends AbstractApplier {
 
     /** The thread pool for running actions. */
@@ -29,7 +27,7 @@ public class NetworkApplier
      * @param foremanApi The API.
      * @param executor   The thread pool.
      */
-    public NetworkApplier(
+    public PoolApplier(
             final List<Miners.Miner> miners,
             final ForemanApi foremanApi,
             final ExecutorService executor) {
@@ -41,12 +39,15 @@ public class NetworkApplier
     /**
      * {@inheritDoc}
      *
-     * <p>Only enabled if a static IP is present.</p>
+     * <p>Only enabled if a pool exists with a non-empty URL.</p>
      */
     @Override
     public boolean isEnabled(final MinerConfig config) {
-        final String ip = config.getStaticIp().getIp();
-        return ip != null && !ip.trim().isEmpty();
+        return config
+                .getPools()
+                .stream()
+                .map(MinerConfig.Pool::getUrl)
+                .anyMatch(url -> url != null && !url.trim().isEmpty());
     }
 
     @Override
@@ -55,27 +56,30 @@ public class NetworkApplier
             final MinerConfig config) {
         return this.executor.submit(
                 new RemoteCommand(
-                        () -> NetworkApplier.this.foremanApi.actions().changeNetwork(
+                        () -> PoolApplier.this.foremanApi.actions().changePools(
                                 miner.id,
-                                toNetwork(config.getStaticIp())),
+                                toPools(config.getPools())),
                         this.foremanApi));
     }
 
     /**
-     * Converts the provided {@link MinerConfig.StaticIp} to a {@link Network}.
+     * Converts the provided pool configuration to the pools to be sent to the
+     * API.
      *
-     * @param staticIp The {@link MinerConfig.StaticIp}.
+     * @param pools The pools.
      *
-     * @return The new {@link Network}.
+     * @return The new pools.
      */
-    private static Network toNetwork(final MinerConfig.StaticIp staticIp) {
-        return Network
-                .builder()
-                .dns(staticIp.getDns())
-                .gateway(staticIp.getGateway())
-                .hostname(staticIp.getHostname())
-                .ipAddress(staticIp.getIp())
-                .netmask(staticIp.getNetmask())
-                .build();
+    private static List<Pool> toPools(final List<MinerConfig.Pool> pools) {
+        return pools
+                .stream()
+                .map(pool ->
+                        Pool
+                                .builder()
+                                .url(pool.getUrl())
+                                .username(pool.getUser())
+                                .password(pool.getPass())
+                                .build())
+                .collect(Collectors.toList());
     }
 }

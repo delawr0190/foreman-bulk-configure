@@ -37,7 +37,7 @@
     <properties>
         <java.version>1.8</java.version>
 
-        <foreman.version>3.33.1</foreman.version>
+        <foreman.version>3.34.0-SNAPSHOT</foreman.version>
         <opencsv.version>4.1</opencsv.version>
         <lombok.version>1.18.16</lombok.version>
     </properties>

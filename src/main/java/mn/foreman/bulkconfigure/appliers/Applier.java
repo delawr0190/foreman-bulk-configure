@@ -1,10 +1,10 @@
-package mn.foreman.bulkconfigure.process;
+package mn.foreman.bulkconfigure.appliers;
 
 import mn.foreman.bulkconfigure.model.MinerConfig;
 
 import java.util.concurrent.Future;
 
-public interface ConfigurationApplier {
+public interface Applier {
 
     /**
      * Applies the provided configuration.

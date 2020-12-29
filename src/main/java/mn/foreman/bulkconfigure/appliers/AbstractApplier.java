@@ -1,10 +1,7 @@
-package mn.foreman.bulkconfigure.process;
+package mn.foreman.bulkconfigure.appliers;
 
 import mn.foreman.api.miners.Miners;
 import mn.foreman.bulkconfigure.model.MinerConfig;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,11 +13,7 @@ import java.util.concurrent.Future;
  * Foreman.
  */
 public abstract class AbstractApplier
-        implements ConfigurationApplier {
-
-    /** The logger for this class. */
-    private static final Logger LOG =
-            LoggerFactory.getLogger(AbstractApplier.class);
+        implements Applier {
 
     /** All of the miners in Foreman. */
     private final List<Miners.Miner> miners;
