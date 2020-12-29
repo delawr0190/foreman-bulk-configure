@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -82,15 +83,17 @@ public class Configurer {
             for (final Applier applier : Configurer.this.appliers) {
                 if (applier.isEnabled(this.minerConfig)) {
                     Boolean result = false;
+                    final Future<Boolean> resultFuture =
+                            applier.configure(this.minerConfig);
+
                     try {
-                        result =
-                                applier
-                                        .configure(this.minerConfig)
-                                        .get(10, TimeUnit.MINUTES);
+                        result = resultFuture.get(15, TimeUnit.MINUTES);
                     } catch (final Exception e) {
                         LOG.warn("Exception occurred while configuring", e);
                     }
-                    if (!result) {
+
+                    if (!resultFuture.isDone() || !result) {
+                        resultFuture.cancel(true);
                         LOG.warn("Failed to apply {} on {}", applier, this.minerConfig);
                         break;
                     }

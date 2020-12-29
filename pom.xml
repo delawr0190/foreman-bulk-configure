@@ -13,7 +13,8 @@
     <artifactId>bulk-configure</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>bulk-configure</name>
-    <description>Command line application for bulk configuring ASICs
+    <description>
+        Command line application for bulk configuring ASICs
     </description>
 
     <organization>
