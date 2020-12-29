@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
 
+/** A configuration for Foreman-specific beans. */
 @Configuration
 public class ConfigurationForeman {
 

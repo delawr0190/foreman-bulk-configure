@@ -4,6 +4,10 @@ import mn.foreman.bulkconfigure.model.MinerConfig;
 
 import java.util.concurrent.Future;
 
+/**
+ * An {@link Applier} provides a mechanism for applying changes to miners on an
+ * as-configured basis.
+ */
 public interface Applier {
 
     /**
