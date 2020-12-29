@@ -5,12 +5,16 @@ import mn.foreman.api.miners.Miners;
 import mn.foreman.bulkconfigure.model.MinerConfig;
 import mn.foreman.model.Pool;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 
 /** Applies a pool configuration if pools are provided on the miner config. */
+@Component
 public class PoolApplier
         extends AbstractApplier {
 
@@ -27,6 +31,7 @@ public class PoolApplier
      * @param foremanApi The API.
      * @param executor   The thread pool.
      */
+    @Autowired
     public PoolApplier(
             final List<Miners.Miner> miners,
             final ForemanApi foremanApi,

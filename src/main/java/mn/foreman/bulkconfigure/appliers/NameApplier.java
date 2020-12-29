@@ -5,11 +5,14 @@ import mn.foreman.api.miners.Miners;
 import mn.foreman.bulkconfigure.model.MinerConfig;
 
 import org.apache.commons.lang3.concurrent.ConcurrentUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.concurrent.Future;
 
 /** Applies a miner name change if one is provided. */
+@Component
 public class NameApplier
         extends AbstractApplier {
 
@@ -22,6 +25,7 @@ public class NameApplier
      * @param miners     The miners.
      * @param foremanApi The API.
      */
+    @Autowired
     public NameApplier(
             final List<Miners.Miner> miners,
             final ForemanApi foremanApi) {

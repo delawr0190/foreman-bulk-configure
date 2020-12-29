@@ -6,12 +6,15 @@ import mn.foreman.api.miners.Miners;
 import mn.foreman.bulkconfigure.model.MinerConfig;
 
 import org.apache.commons.lang3.concurrent.ConcurrentUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.Future;
 
 /** Applies a miner site map change if a rack is provided. */
+@Component
 public class SiteMapApplier
         extends AbstractApplier {
 
@@ -24,6 +27,7 @@ public class SiteMapApplier
      * @param miners     The miners.
      * @param foremanApi The API.
      */
+    @Autowired
     public SiteMapApplier(
             final List<Miners.Miner> miners,
             final ForemanApi foremanApi) {

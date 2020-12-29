@@ -3,6 +3,10 @@ package mn.foreman.bulkconfigure.appliers;
 import mn.foreman.api.ForemanApi;
 import mn.foreman.api.miners.Miners;
 import mn.foreman.bulkconfigure.model.MinerConfig;
+import mn.foreman.model.Network;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -12,6 +16,7 @@ import java.util.concurrent.Future;
  * Applies a network configuration if a static IP is provided on the miner
  * config.
  */
+@Component
 public class NetworkApplier
         extends AbstractApplier {
 
@@ -28,6 +33,7 @@ public class NetworkApplier
      * @param foremanApi The API.
      * @param executor   The thread pool.
      */
+    @Autowired
     public NetworkApplier(
             final List<Miners.Miner> miners,
             final ForemanApi foremanApi,
@@ -61,14 +67,14 @@ public class NetworkApplier
     }
 
     /**
-     * Converts the provided {@link MinerConfig.StaticIp} to a {@link mn.foreman.model.Network}.
+     * Converts the provided {@link MinerConfig.StaticIp} to a {@link Network}.
      *
      * @param staticIp The {@link MinerConfig.StaticIp}.
      *
      * @return The new {@link mn.foreman.model.Network}.
      */
-    private static mn.foreman.model.Network toNetwork(final MinerConfig.StaticIp staticIp) {
-        return mn.foreman.model.Network
+    private static Network toNetwork(final MinerConfig.StaticIp staticIp) {
+        return Network
                 .builder()
                 .dns(staticIp.getDns())
                 .gateway(staticIp.getGateway())
