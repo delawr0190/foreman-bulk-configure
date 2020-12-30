@@ -22,6 +22,9 @@ public class MinerConfig {
     /** The pools. */
     private final List<Pool> pools;
 
+    /** The serial. */
+    private final String serial;
+
     /** The static IP configuration. */
     private final StaticIp staticIp;
 

@@ -7,3 +7,5 @@ user:
 
 foreman:
   url: https://dashboard.foreman.mn
+
+conf.file: src/test/resources/onboarding.csv

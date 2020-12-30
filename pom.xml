@@ -79,6 +79,31 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <descriptors>
+                        <descriptor>assembly/assembly-min.xml</descriptor>
+                        <descriptor>assembly/assembly-jre.xml</descriptor>
+                    </descriptors>
+                    <finalName>
+                        ${project.artifactId}-${project.version}
+                    </finalName>
+                    <tarLongFileMode>
+                        gnu
+                    </tarLongFileMode>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 </project>

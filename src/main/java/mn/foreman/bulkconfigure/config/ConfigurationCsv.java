@@ -5,6 +5,7 @@ import mn.foreman.bulkconfigure.model.MinerConfig;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.enums.CSVReaderNullFieldIndicator;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -22,16 +23,18 @@ public class ConfigurationCsv {
     /**
      * Loads the CSV file and parses {@link MinerConfig configs}.
      *
+     * @param confFile The conf file.
+     *
      * @return The configs.
      *
      * @throws IOException on failure.
      */
     @Bean
-    public List<MinerConfig> csv()
+    public List<MinerConfig> csv(@Value("${conf.file}") final String confFile)
             throws IOException {
         final List<List<String>> records = new LinkedList<>();
         try (final FileReader fileReader =
-                     new FileReader("/tmp/onboarding.csv");
+                     new FileReader(confFile);
              final CSVReader csvReader =
                      new CSVReaderBuilder(fileReader)
                              .withFieldAsNull(CSVReaderNullFieldIndicator.EMPTY_SEPARATORS)
@@ -66,6 +69,7 @@ public class ConfigurationCsv {
         return MinerConfig
                 .builder()
                 .mac(values.get(position++))
+                .serial(values.get(position++))
                 .location(
                         MinerConfig.Location
                                 .builder()

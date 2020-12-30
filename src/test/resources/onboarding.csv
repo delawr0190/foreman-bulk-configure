@@ -1,0 +1,2 @@
+mac,serial,rack,row,index,name,static_ip,netmask,gateway,dns,hostname,pool_1_url,pool_1_user,pool_1_pass,pool_2_url,pool_2_user,pool_2_pass,pool_3_url,pool_3_user,pool_3_pass
+ca:fe:ba:be:de,serial,1,2,1,my_miner,192.168.1.110,255.255.255.0,192.168.1.1,0.0.0.0,my_hostname,stratum_1,user_1,pass_1,stratum_2,user_2,pass_2,stratum_3,user3,pass3
