@@ -1,0 +1,25 @@
+language: java
+jdk:
+  - openjdk8
+
+install: mvn install --settings .travis.settings.xml -DskipTests=true -Dmaven.javadoc.skip=true -B -V -q
+
+script: mvn verify --settings .travis.settings.xml -q
+
+deploy:
+  - provider: script
+    script: mvn deploy --settings .travis.settings.xml -DskipTests=true -q
+    skip_cleanup: true
+    on:
+      tags: true
+  - provider: releases
+    api_key: $GITHUB_TOKEN
+    file:
+      - "foreman-bulk-configure/target/*.tar.bz2"
+      - "foreman-bulk-configure/target/*.tar.gz"
+      - "foreman-bulk-configure/target/*.zip"
+    file_glob: true
+    skip_cleanup: true
+    on:
+      tags: true
+    name: $TRAVIS_BRANCH
