@@ -15,7 +15,6 @@ deploy:
   - provider: releases
     api_key: $GITHUB_TOKEN
     file:
-      - "foreman-bulk-configure/target/*.tar.bz2"
       - "foreman-bulk-configure/target/*.tar.gz"
       - "foreman-bulk-configure/target/*.zip"
     file_glob: true
