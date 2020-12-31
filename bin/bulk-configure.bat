@@ -35,7 +35,7 @@ exit /b 1
 for /f "delims=" %%x in ('dir /od /b "%BULK_HOME%\lib\*.jar"') do set latestjar=%%x
 
 rem # Set command line arguments
-set JVM_COMMAND_LINE=--conf.file "%BULK_HOME%\conf\onboarding.csv"
+set JVM_COMMAND_LINE=--conf.file "%BULK_HOME%\conf\on-boarding.csv"
 %JAVA% -jar "%BULK_HOME%\lib\%latestjar%" %JVM_COMMAND_LINE% %*
 goto end
 

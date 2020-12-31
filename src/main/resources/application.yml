@@ -8,4 +8,4 @@ user:
 foreman:
   url: https://dashboard.foreman.mn
 
-conf.file: src/test/resources/onboarding.csv
+conf.file: src/test/resources/on-boarding.csv
