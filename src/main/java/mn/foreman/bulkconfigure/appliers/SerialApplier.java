@@ -9,8 +9,8 @@ import org.apache.commons.lang3.concurrent.ConcurrentUtils;
 import java.util.List;
 import java.util.concurrent.Future;
 
-/** Applies a miner name change if one is provided. */
-public class NameApplier
+/** Applies a miner serial change if one is provided. */
+public class SerialApplier
         extends AbstractApplier {
 
     /** The Foreman API. */
@@ -22,7 +22,7 @@ public class NameApplier
      * @param miners     The miners.
      * @param foremanApi The API.
      */
-    public NameApplier(
+    public SerialApplier(
             final List<Miners.Miner> miners,
             final ForemanApi foremanApi) {
         super(miners);
@@ -31,8 +31,8 @@ public class NameApplier
 
     @Override
     public boolean isEnabled(final MinerConfig config) {
-        final String name = config.getName();
-        return name != null && !name.trim().isEmpty();
+        final String serial = config.getSerial();
+        return serial != null && !serial.trim().isEmpty();
     }
 
     @Override
@@ -46,6 +46,6 @@ public class NameApplier
                         null,
                         miner.platform,
                         miner.type,
-                        null).isPresent());
+                        config.getSerial()).isPresent());
     }
 }

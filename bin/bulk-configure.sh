@@ -19,4 +19,4 @@ fi
 
 $JAVA \
   -jar ${BULK_HOME}/lib/*.jar \
-  --conf.file=${BULK_HOME}/conf/on-boarding.csv
+  --conf.file=${BULK_HOME}/conf/on-boarding.csv "$@"

@@ -113,7 +113,9 @@ public class Configurer {
                             break;
                         }
                     } catch (final Exception e) {
-                        LOG.warn("{}: failed to configure", uuid, e);
+                        LOG.warn("{}: failed to configure - terminating for this miner",
+                                uuid,
+                                e);
                         break;
                     }
                 } else {

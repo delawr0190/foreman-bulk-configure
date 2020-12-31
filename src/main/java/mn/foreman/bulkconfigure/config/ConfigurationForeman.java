@@ -39,6 +39,9 @@ public class ConfigurationForeman {
                 new NameApplier(
                         miners,
                         foremanApi),
+                new SerialApplier(
+                        miners,
+                        foremanApi),
                 new NetworkApplier(
                         miners,
                         foremanApi,
