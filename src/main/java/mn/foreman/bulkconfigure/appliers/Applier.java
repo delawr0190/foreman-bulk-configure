@@ -20,6 +20,13 @@ public interface Applier {
     Future<Boolean> configure(MinerConfig config);
 
     /**
+     * Returns the name.
+     *
+     * @return The name.
+     */
+    String getName();
+
+    /**
      * Returns whether or not the process should be executed.
      *
      * @param config The configuration.

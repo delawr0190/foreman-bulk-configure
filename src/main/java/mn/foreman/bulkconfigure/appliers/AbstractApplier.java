@@ -32,12 +32,17 @@ public abstract class AbstractApplier
         return runConfigure(
                 this.miners
                         .stream()
-                        .filter(miner -> config.getMac().equals(miner.name))
+                        .filter(miner -> config.getMac().equalsIgnoreCase(miner.mac))
                         .findFirst()
                         .orElseThrow(
                                 () -> new IllegalArgumentException(
                                         "Miner not found by MAC address")),
                 config);
+    }
+
+    @Override
+    public String getName() {
+        return getClass().getSimpleName();
     }
 
     /**

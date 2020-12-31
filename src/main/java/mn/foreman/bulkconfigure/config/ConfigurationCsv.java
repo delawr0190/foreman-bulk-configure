@@ -74,8 +74,8 @@ public class ConfigurationCsv {
                         MinerConfig.Location
                                 .builder()
                                 .rack(values.get(position++))
-                                .row(Integer.parseInt(values.get(position++)))
-                                .index(Integer.parseInt(values.get(position++)))
+                                .row(toInt(values.get(position++)))
+                                .index(toInt(values.get(position++)))
                                 .build())
                 .name(values.get(position++))
                 .staticIp(
@@ -122,5 +122,16 @@ public class ConfigurationCsv {
                 .stream()
                 .map(ConfigurationCsv::toConfig)
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * Safely reads an integer.
+     *
+     * @param value The source.
+     *
+     * @return The value.
+     */
+    private static Integer toInt(final String value) {
+        return value != null ? Integer.parseInt(value) : 0;
     }
 }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
@@ -80,23 +81,45 @@ public class Configurer {
 
         @Override
         public void run() {
+            final UUID uuid = UUID.randomUUID();
+            LOG.info("{}: {} will be applied as part of this task",
+                    uuid,
+                    this.minerConfig);
+
             for (final Applier applier : Configurer.this.appliers) {
                 if (applier.isEnabled(this.minerConfig)) {
-                    Boolean result = false;
-                    final Future<Boolean> resultFuture =
-                            applier.configure(this.minerConfig);
-
+                    LOG.info("{}: {} is enabled - will be applied",
+                            uuid,
+                            applier.getName());
                     try {
-                        result = resultFuture.get(15, TimeUnit.MINUTES);
-                    } catch (final Exception e) {
-                        LOG.warn("Exception occurred while configuring", e);
-                    }
+                        Boolean result = false;
+                        final Future<Boolean> resultFuture =
+                                applier.configure(this.minerConfig);
+                        LOG.info("{}: application was successful - waiting", uuid);
 
-                    if (!resultFuture.isDone() || !result) {
-                        resultFuture.cancel(true);
-                        LOG.warn("Failed to apply {} on {}", applier, this.minerConfig);
+                        try {
+                            result = resultFuture.get(15, TimeUnit.MINUTES);
+                        } catch (final Exception e) {
+                            LOG.warn("{}: exception occurred while configuring", uuid, e);
+                        }
+
+                        if (resultFuture.isDone() && result) {
+                            LOG.info("{}: finished successfully", uuid);
+                        } else {
+                            resultFuture.cancel(true);
+                            LOG.warn("{}: failed to apply {} - terminating for this miner",
+                                    uuid,
+                                    applier.getName());
+                            break;
+                        }
+                    } catch (final Exception e) {
+                        LOG.warn("{}: failed to configure", uuid, e);
                         break;
                     }
+                } else {
+                    LOG.info("{}: {} is disabled - skipping",
+                            uuid,
+                            applier.getName());
                 }
             }
         }

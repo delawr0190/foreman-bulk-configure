@@ -5,12 +5,14 @@ import mn.foreman.api.ForemanApiImpl;
 import mn.foreman.api.JdkWebUtil;
 import mn.foreman.api.WebUtil;
 import mn.foreman.api.miners.Miners;
+import mn.foreman.bulkconfigure.appliers.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -18,6 +20,37 @@ import java.util.concurrent.Executors;
 /** A configuration for Foreman-specific beans. */
 @Configuration
 public class ConfigurationForeman {
+
+    /**
+     * Creates the appliers.
+     *
+     * @param miners          The miners.
+     * @param foremanApi      The API.
+     * @param executorService The thread pool for running commands.
+     *
+     * @return The appliers.
+     */
+    @Bean
+    public List<Applier> appliers(
+            final List<Miners.Miner> miners,
+            final ForemanApi foremanApi,
+            final ExecutorService executorService) {
+        return Arrays.asList(
+                new NameApplier(
+                        miners,
+                        foremanApi),
+                new NetworkApplier(
+                        miners,
+                        foremanApi,
+                        executorService),
+                new PoolApplier(
+                        miners,
+                        foremanApi,
+                        executorService),
+                new SiteMapApplier(
+                        miners,
+                        foremanApi));
+    }
 
     /**
      * Creates the thread pool for performing remote commands.
