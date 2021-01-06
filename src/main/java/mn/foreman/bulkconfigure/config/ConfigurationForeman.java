@@ -36,9 +36,6 @@ public class ConfigurationForeman {
             final ForemanApi foremanApi,
             final ExecutorService executorService) {
         return Arrays.asList(
-                new NameApplier(
-                        miners,
-                        foremanApi),
                 new SerialApplier(
                         miners,
                         foremanApi),
@@ -50,6 +47,9 @@ public class ConfigurationForeman {
                         miners,
                         foremanApi,
                         executorService),
+                new NameApplier(
+                        miners,
+                        foremanApi),
                 new SiteMapApplier(
                         miners,
                         foremanApi));
