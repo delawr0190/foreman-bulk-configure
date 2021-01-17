@@ -6,22 +6,24 @@
 
 ### Bulk Configure
 
-Bulk Configure is an open-source Java application that leverages the Foreman 
-API to streamline the miner on-boarding process.
+Bulk Configure is an open-source Java application that leverages the Foreman API
+to streamline the miner on-boarding process.
 
 Depending on the configuration provided, on a per-miner basis, it can:
 
 1. Assign a static IP address and custom hostname
 2. Assign a custom miner name in Foreman
 3. Assign an initial set of pools and worker names
-4. Automatically update the Foreman Site Map with a rack and 
-   location
-5. Tag the miner in Foreman with the provided serial number
+4. Assign tags to the miner in Foreman
+5. Automatically update the Foreman Site Map with a rack and location
+6. Tag the miner in Foreman with the provided serial number
 
 #### How to run
 
-1. Obtain client ID and API key from [here](https://dashboard.foreman.mn/dashboard/profile/).
-2. Obtain Pickaxe ID from [here](https://dashboard.foreman.mn/dashboard/pickaxe/).
+1. Obtain client ID and API key
+   from [here](https://dashboard.foreman.mn/dashboard/profile/).
+2. Obtain Pickaxe ID
+   from [here](https://dashboard.foreman.mn/dashboard/pickaxe/).
 
 ##### Linux
 
@@ -37,13 +39,13 @@ bin\bulk-configure.bat --client.id=<client_id> --client.pickaxe=<pickaxe> --user
 
 #### How to configure
 
-The configuration for all miners that are to be configured must be provided 
-in a file in the ```conf``` directory, and the file must be called 
+The configuration for all miners that are to be configured must be provided in a
+file in the ```conf``` directory, and the file must be called
 ```on-boarding.csv```.
 
 ##### Static IP and Custom Hostname
 
-To assign a static IP, the following columns must be non-empty in the 
+To assign a static IP, the following columns must be non-empty in the
 `on-boarding.csv` file:
 
 - static_ip
@@ -51,14 +53,14 @@ To assign a static IP, the following columns must be non-empty in the
 - gateway
 - dns
 
-To assign a hostname, the columns above must be provided, in addition to the 
+To assign a hostname, the columns above must be provided, in addition to the
 `hostname` column.
 
 ##### Custom miner name
 
-To assign a custom miner name, the ```name``` column must be non-empty.  The 
-name value can leverage variable patterns as available on the Foreman 
-dashboard. Those are currently:
+To assign a custom miner name, the ```name``` column must be non-empty. The name
+value can leverage variable patterns as available on the Foreman dashboard.
+Those are currently:
 
 - ```${miner.name}```
 - ```${miner.ip}```
@@ -75,7 +77,7 @@ dashboard. Those are currently:
 
 ##### Initial pools
 
-To assign an initial pool configuration, the following columns must be 
+To assign an initial pool configuration, the following columns must be
 non-empty:
 
 - pool_1_url
@@ -88,10 +90,20 @@ non-empty:
 - pool_3_user
 - pool_3_pass
 
+##### Tagging
+
+To assign tags to a miner in Foreman for logical grouping, the following column
+must be non-empty:
+
+- tags
+
+To assign more than 1 tag, the tags must be comma separated. Example:
+
+`my_tag_1,new_tag_2,other_tag`
+
 ##### Site Map positioning
 
-To assign a Site Map location, the following columns must be 
-non-empty:
+To assign a Site Map location, the following columns must be non-empty:
 
 - rack
 - row
@@ -101,9 +113,10 @@ non-empty:
 
 ##### Serial Number Tagging
 
-To tag the miner in Foreman with the serial number, the ```serial``` column 
-must be non-empty.
+To tag the miner in Foreman with the serial number, the ```serial``` column must
+be non-empty.
 
 ## License
 
-Copyright © 2018, [OBM LLC](https://obm.mn/).  Released under the [GPL-3.0 License](LICENSE).
+Copyright © 2021, [OBM LLC](https://obm.mn/). Released under
+the [GPL-3.0 License](LICENSE).
