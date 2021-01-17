@@ -87,21 +87,21 @@ public class RemoteCommand
                 now + COMMAND_TIMEOUT_UNITS.toMillis(COMMAND_TIMEOUT);
 
         while (now < deadline) {
-            final StatusRunning statusRunning =
-                    this.foremanApi
-                            .actions()
-                            .status(response.command)
-                            .orElse(StatusRunning.IN_PROGRESS);
-            LOG.info("Command is {}", statusRunning);
-            if (statusRunning.isDone()) {
-                wasSuccess = statusRunning.isSuccess();
-                break;
-            }
-
             try {
+                final StatusRunning statusRunning =
+                        this.foremanApi
+                                .actions()
+                                .status(response.command)
+                                .orElse(StatusRunning.IN_PROGRESS);
+                LOG.info("Command is {}", statusRunning);
+                if (statusRunning.isDone()) {
+                    wasSuccess = statusRunning.isSuccess();
+                    break;
+                }
+
                 TimeUnit.MINUTES.sleep(1);
-            } catch (final InterruptedException ie) {
-                // Ignore
+            } catch (final Exception e) {
+                LOG.warn("Exception occurred while waiting for command", e);
             }
             now = System.currentTimeMillis();
         }
