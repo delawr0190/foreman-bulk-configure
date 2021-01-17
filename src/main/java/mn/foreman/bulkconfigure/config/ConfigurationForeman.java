@@ -50,6 +50,9 @@ public class ConfigurationForeman {
                 new NameApplier(
                         miners,
                         foremanApi),
+                new TagApplier(
+                        miners,
+                        foremanApi),
                 new SiteMapApplier(
                         miners,
                         foremanApi));

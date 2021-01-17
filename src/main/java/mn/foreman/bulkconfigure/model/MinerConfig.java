@@ -28,6 +28,9 @@ public class MinerConfig {
     /** The static IP configuration. */
     private final StaticIp staticIp;
 
+    /** The tags. */
+    private final List<String> tags;
+
     /** Site map configuration. */
     @Data
     @Builder

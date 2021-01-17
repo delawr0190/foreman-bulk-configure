@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -105,8 +106,12 @@ public class ConfigurationCsv {
                                         .builder()
                                         .url(values.get(position++))
                                         .user(values.get(position++))
-                                        .pass(values.get(position))
+                                        .pass(values.get(position++))
                                         .build()))
+                .tags(
+                        values.get(position) != null
+                                ? Arrays.asList(values.get(position).split(","))
+                                : Collections.emptyList())
                 .build();
     }
 
