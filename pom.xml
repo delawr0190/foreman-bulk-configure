@@ -11,7 +11,7 @@
     </parent>
     <groupId>mn.foreman</groupId>
     <artifactId>bulk-configure</artifactId>
-    <version>1.1.0</version>
+    <version>1.2.0-SNAPSHOT</version>
     <name>bulk-configure</name>
     <description>
         Command line application for bulk configuring ASICs
