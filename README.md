@@ -97,9 +97,9 @@ must be non-empty:
 
 - tags
 
-To assign more than 1 tag, the tags must be comma separated. Example:
+To assign more than 1 tag, the tags must be colon separated. Example:
 
-`my_tag_1,new_tag_2,other_tag`
+`my_tag_1:new_tag_2:other_tag`
 
 ##### Site Map positioning
 

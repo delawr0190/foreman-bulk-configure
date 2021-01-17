@@ -110,7 +110,7 @@ public class ConfigurationCsv {
                                         .build()))
                 .tags(
                         values.get(position) != null
-                                ? Arrays.asList(values.get(position).split(","))
+                                ? Arrays.asList(values.get(position).split(":"))
                                 : Collections.emptyList())
                 .build();
     }
