@@ -1,9 +1,9 @@
 package mn.foreman.bulkconfigure.appliers;
 
 import mn.foreman.api.ForemanApi;
-import mn.foreman.api.miners.Miners;
+import mn.foreman.api.endpoints.miners.Miners;
+import mn.foreman.api.model.Network;
 import mn.foreman.bulkconfigure.model.MinerConfig;
-import mn.foreman.model.Network;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -66,7 +66,7 @@ public class NetworkApplier
      *
      * @param staticIp The {@link MinerConfig.StaticIp}.
      *
-     * @return The new {@link mn.foreman.model.Network}.
+     * @return The new {@link Network}.
      */
     private static Network toNetwork(final MinerConfig.StaticIp staticIp) {
         return Network

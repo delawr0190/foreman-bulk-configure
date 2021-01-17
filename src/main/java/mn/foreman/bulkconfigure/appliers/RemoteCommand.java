@@ -1,9 +1,9 @@
 package mn.foreman.bulkconfigure.appliers;
 
 import mn.foreman.api.ForemanApi;
-import mn.foreman.api.actions.Actions;
-import mn.foreman.api.actions.StatusRunning;
-import mn.foreman.api.actions.StatusSubmit;
+import mn.foreman.api.endpoints.StatusSubmit;
+import mn.foreman.api.endpoints.actions.Actions;
+import mn.foreman.api.endpoints.actions.StatusRunning;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

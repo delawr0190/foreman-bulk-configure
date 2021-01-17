@@ -1,9 +1,9 @@
 package mn.foreman.bulkconfigure.appliers;
 
 import mn.foreman.api.ForemanApi;
-import mn.foreman.api.miners.Miners;
+import mn.foreman.api.endpoints.miners.Miners;
+import mn.foreman.api.model.Pool;
 import mn.foreman.bulkconfigure.model.MinerConfig;
-import mn.foreman.model.Pool;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;

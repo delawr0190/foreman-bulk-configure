@@ -1,6 +1,6 @@
 package mn.foreman.bulkconfigure.appliers;
 
-import mn.foreman.api.miners.Miners;
+import mn.foreman.api.endpoints.miners.Miners;
 import mn.foreman.bulkconfigure.model.MinerConfig;
 
 import java.util.ArrayList;

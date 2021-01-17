@@ -4,7 +4,7 @@ import mn.foreman.api.ForemanApi;
 import mn.foreman.api.ForemanApiImpl;
 import mn.foreman.api.JdkWebUtil;
 import mn.foreman.api.WebUtil;
-import mn.foreman.api.miners.Miners;
+import mn.foreman.api.endpoints.miners.Miners;
 import mn.foreman.bulkconfigure.appliers.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;

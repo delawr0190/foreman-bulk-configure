@@ -1,8 +1,9 @@
 package mn.foreman.bulkconfigure.appliers;
 
 import mn.foreman.api.ForemanApi;
-import mn.foreman.api.actions.StatusSubmit;
-import mn.foreman.api.miners.Miners;
+import mn.foreman.api.endpoints.StatusSubmit;
+import mn.foreman.api.endpoints.miners.Miners;
+import mn.foreman.api.endpoints.sitemap.SiteMap;
 import mn.foreman.bulkconfigure.model.MinerConfig;
 
 import org.apache.commons.lang3.concurrent.ConcurrentUtils;
@@ -42,14 +43,14 @@ public class SiteMapApplier
             final Miners.Miner miner,
             final MinerConfig config) {
         final MinerConfig.Location location = config.getLocation();
-        final Optional<mn.foreman.api.sitemap.SiteMap.Response> responseOpt =
+        final Optional<SiteMap.Response> responseOpt =
                 this.foremanApi.siteMap().setLocation(
                         miner.id,
                         location.getRack(),
                         location.getRow(),
                         location.getIndex());
         if (responseOpt.isPresent()) {
-            final mn.foreman.api.sitemap.SiteMap.Response response =
+            final SiteMap.Response response =
                     responseOpt.get();
             return ConcurrentUtils.constantFuture(
                     response.status == StatusSubmit.OKAY);

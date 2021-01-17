@@ -1,7 +1,7 @@
 package mn.foreman.bulkconfigure.appliers;
 
 import mn.foreman.api.ForemanApi;
-import mn.foreman.api.miners.Miners;
+import mn.foreman.api.endpoints.miners.Miners;
 import mn.foreman.bulkconfigure.model.MinerConfig;
 
 import org.apache.commons.lang3.concurrent.ConcurrentUtils;
