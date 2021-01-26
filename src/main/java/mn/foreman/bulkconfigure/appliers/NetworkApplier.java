@@ -79,7 +79,7 @@ public class NetworkApplier
                             this.foremanApi));
         } else {
             LOG.warn(
-                    "Miner on {} exists in Foreman with a different MAC other (not {}) - IPs must be unique!",
+                    "Miner on {} exists in Foreman with a different MAC (not {}) - IPs must be unique!",
                     matchingMiner.get().mac,
                     config.getMac());
             throw new ConfigurationException("Miner IP conflict!");
