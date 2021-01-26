@@ -16,7 +16,7 @@ public abstract class AbstractApplier
         implements Applier {
 
     /** All of the miners in Foreman. */
-    private final List<Miners.Miner> miners;
+    protected final List<Miners.Miner> miners;
 
     /**
      * Constructor.
@@ -28,7 +28,8 @@ public abstract class AbstractApplier
     }
 
     @Override
-    public Future<Boolean> configure(final MinerConfig config) {
+    public Future<Boolean> configure(final MinerConfig config)
+            throws ConfigurationException {
         return runConfigure(
                 this.miners
                         .stream()
@@ -53,8 +54,11 @@ public abstract class AbstractApplier
      *
      * @return A future indicating whether or not the configuration was
      *         successful.
+     *
+     * @throws ConfigurationException on failure.
      */
     protected abstract Future<Boolean> runConfigure(
             final Miners.Miner miner,
-            final MinerConfig config);
+            final MinerConfig config)
+            throws ConfigurationException;
 }

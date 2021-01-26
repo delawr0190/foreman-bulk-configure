@@ -16,8 +16,11 @@ public interface Applier {
      * @param config The configuration.
      *
      * @return A future indicating success.
+     *
+     * @throws ConfigurationException on failure.
      */
-    Future<Boolean> configure(MinerConfig config);
+    Future<Boolean> configure(MinerConfig config)
+            throws ConfigurationException;
 
     /**
      * Returns the name.

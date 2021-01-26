@@ -5,7 +5,11 @@ import mn.foreman.api.endpoints.miners.Miners;
 import mn.foreman.api.model.Network;
 import mn.foreman.bulkconfigure.model.MinerConfig;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 
@@ -15,6 +19,10 @@ import java.util.concurrent.Future;
  */
 public class NetworkApplier
         extends AbstractApplier {
+
+    /** The logger for this class. */
+    private static final Logger LOG =
+            LoggerFactory.getLogger(NetworkApplier.class);
 
     /** The thread pool for running actions. */
     private final ExecutorService executor;
@@ -52,13 +60,30 @@ public class NetworkApplier
     @Override
     protected Future<Boolean> runConfigure(
             final Miners.Miner miner,
-            final MinerConfig config) {
-        return this.executor.submit(
-                new RemoteCommand(
-                        () -> NetworkApplier.this.foremanApi.actions().changeNetwork(
-                                miner.id,
-                                toNetwork(config.getStaticIp())),
-                        this.foremanApi));
+            final MinerConfig config)
+            throws ConfigurationException {
+        // Check to see if a miner in Foreman already has this IP
+        final String mac = config.getMac();
+        final Optional<Miners.Miner> matchingMiner =
+                this.miners
+                        .stream()
+                        .filter(candidate -> candidate.apiIp.equalsIgnoreCase(config.getStaticIp().getIp()))
+                        .filter(candidate -> !mac.equals(candidate.mac))
+                        .findAny();
+        if (!matchingMiner.isPresent()) {
+            return this.executor.submit(
+                    new RemoteCommand(
+                            () -> NetworkApplier.this.foremanApi.actions().changeNetwork(
+                                    miner.id,
+                                    toNetwork(config.getStaticIp())),
+                            this.foremanApi));
+        } else {
+            LOG.warn(
+                    "Miner on {} exists in Foreman with a different MAC other (not {}) - IPs must be unique!",
+                    matchingMiner.get().mac,
+                    config.getMac());
+            throw new ConfigurationException("Miner IP conflict!");
+        }
     }
 
     /**
