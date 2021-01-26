@@ -6,6 +6,6 @@ user:
   apiKey: fill_in
 
 foreman:
-  url: https://dashboard.foreman.mn
+  url: https://api.foreman.mn
 
 conf.file: src/test/resources/on-boarding.csv
